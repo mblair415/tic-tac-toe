@@ -2,6 +2,9 @@
 $(document).ready(function() {
   // console.log("don't jump off a bridget yet, js loads.");
 var turn = 1;
+var winner;
+var threeInARow = [$("row1"), $("row2"), $("row3"), $("column1"), $("column2"),
+  $("column3"), $("diag1"), $("diag2")];
 
 function currentPlayer() {
   return turn % 2 ? "O" : "X"; // if turn even return player 1, if turn off return player 2
@@ -12,9 +15,7 @@ function currentPlayer() {
       // a message to pick another square.  find some shit in bootstrap.
     } else {
       $(this).addClass(currentPlayer());
-      $(this).text(currentPlayer());
-
-      //  change tile to show move
+      $(this).text(currentPlayer());  // will change O to X will not change X to O.
     }
     turn++;
     gameOver();
@@ -25,10 +26,16 @@ function currentPlayer() {
   })
 
   function gameOver(){
+    if ($.each(threeInARow, function(sequence) {
+      if ($.each(sequence).hasClass(currentPlayer())) {
+        winner = currentPlayer();
+        console.log(currentPlayer());
+        return ;
+      }
+    })) {
 
+    }
   }
-
-
 
 });
 

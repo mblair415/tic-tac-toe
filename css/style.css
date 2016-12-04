@@ -14,18 +14,33 @@ h1 {
 }
 
 .container {
-  border: dashed 1px black;
+  /*border: dashed 1px black;*/
 }
 
 .content-card {
   min-height: 100px;
   background-color: blue;
-  border: solid 2px red;
+  /*border: solid 2px red;*/
   text-align: center;
   padding-top: 20px;
   color: yellow;
   font-size: 30pt;
   /*padding-bottom: 45px;*/
+}
+.row1 {
+  border-bottom: solid 3px red;
+}
+
+.row2 {
+  border-bottom: solid 3px red;
+}
+
+.column1 {
+  border-right: solid 3px red;
+}
+
+.column2 {
+  border-right: solid 3px red;
 }
 
 .btn-lg {
