@@ -1,23 +1,27 @@
 // wait for the DOM to finish loading
 $(document).ready(function() {
   // console.log("don't jump off a bridget yet, js loads.");
-var turn = 0;
+var turn = 1;
 
 function currentPlayer() {
-  return turn % 2 ? "Player 1" : "Player 2"; // if turn even return player 1, if turn off return player 2
+  return turn % 2 ? "O" : "X"; // if turn even return player 1, if turn off return player 2
 }
   $(".content-card").on("click", function() {
     // console.log("click works");
     if ($(this).hasClass("X" || "O")) {
-      // a message to pick another square.  find some shit in boostrap.
+      // a message to pick another square.  find some shit in bootstrap.
     } else {
       $(this).addClass(currentPlayer());
-      // $(this).add(span)
+      $(this).text(currentPlayer());
 
-      //
+      //  change tile to show move
     }
     turn++;
     gameOver();
+  })
+
+  $(".btn").on("click", function () {
+    location.reload(true);
   })
 
   function gameOver(){
