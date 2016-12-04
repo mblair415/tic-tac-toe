@@ -4,5 +4,40 @@
 
 .box {
   border: 1px solid black;
-  height: 150px;
+  height: 1500px;
+}
+
+
+h1 {
+  text-align: center;
+  text-shadow: 1px 1px #ff0000
+}
+
+.container {
+  border: dashed 1px black;
+}
+
+.content-card {
+  min-height: 100px;
+  background-color: blue;
+  border: solid 2px red;
+  text-align: center;
+  padding-top: 20px;
+  color: yellow;
+  font-size: 30pt;
+  /*padding-bottom: 45px;*/
+}
+
+.btn-lg {
+  align-items: center;
+}
+
+.X {
+  background-color: #0BC6E5;
+  color: #000B41;
+}
+
+.O {
+  background-color: #D1B700;
+  color: #FFC7AA;
 }
