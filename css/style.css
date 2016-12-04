@@ -56,3 +56,12 @@ h1 {
   background-color: #D1B700;
   color: #FFC7AA;
 }
+
+.status {
+  min-height: 50px;
+  text-align: center;
+  text-shadow: 1px 1px #ff0000;
+  margin-bottom: 10px;
+  /*padding-top: 20px;*/
+  font-size: 20pt;
+}

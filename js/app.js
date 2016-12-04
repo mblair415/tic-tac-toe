@@ -1,41 +1,46 @@
 // wait for the DOM to finish loading
 $(document).ready(function() {
   // console.log("don't jump off a bridget yet, js loads.");
-var turn = 1;
-var winner;
-var threeInARow = [$("row1"), $("row2"), $("row3"), $("column1"), $("column2"),
-  $("column3"), $("diag1"), $("diag2")];
+  var turn = 1;
+  var winner;
+  var threeInARow = [$("row1"), $("row2"), $("row3"), $("column1"), $("column2"),
+    $("column3"), $("diag1"), $("diag2")];
 
-function currentPlayer() {
-  return turn % 2 ? "O" : "X"; // if turn even return player 1, if turn off return player 2
-}
+  function currentPlayer() {
+    return turn % 2 ? "O" : "X"; // if turn even return player 1, if turn off return player 2
+  }
+
   $(".content-card").on("click", function() {
     // console.log("click works");
     if ($(this).hasClass("X" || "O")) {
-      // a message to pick another square.  find some shit in bootstrap.
+      // a message to pick another square.  find something in bootstrap.
     } else {
       $(this).addClass(currentPlayer());
       $(this).text(currentPlayer());  // will change O to X will not change X to O.
     }
-    turn++;
-    gameOver();
+    turn++;  // advance game
+    gameOver();  // check to see if there's a winner
+    return;
   })
+
+  function gameOver() {
+    if ($.each(threeInARow, function(sequence) {  // check each element (array of arrays)
+      if ($.each(sequence).hasClass(currentPlayer())) {  // this doesn't work!!  supposed to check each item within a single array to see any have a specific class.
+        winner = currentPlayer(); // if yes winner
+        console.log(currentPlayer());  // testing
+        return; // not sure if this required
+      }
+    })) {
+    } else if (turn === 9) {
+      winner = "Not you";  // cat game at turn 9 if no one has won.
+    }
+    $(".status").text("The winner is: " + winner);
+    $(".status").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);  // half sec fade in and out
+  }
 
   $(".btn").on("click", function () {
     location.reload(true);
   })
-
-  function gameOver(){
-    if ($.each(threeInARow, function(sequence) {
-      if ($.each(sequence).hasClass(currentPlayer())) {
-        winner = currentPlayer();
-        console.log(currentPlayer());
-        return ;
-      }
-    })) {
-
-    }
-  }
 
 });
 
