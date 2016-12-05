@@ -2,40 +2,49 @@
 $(document).ready(function() {
   // console.log("don't jump off a bridget yet, js loads.");
   var turn = 1;
-  var winner;
-  var threeInARow = [$("row1"), $("row2"), $("row3"), $("column1"), $("column2"),
-    $("column3"), $("diag1"), $("diag2")];
+  var winCounter = 0;
+  $(".status").text("Player " + currentPlayer() + ". It's your turn.");
+  var winCombinations = [$(".row1"), $(".row2"), $(".row3"), $(".column1"),
+  $(".column2"), $(".column3"), $(".diag1"), $(".diag2")];
 
   function currentPlayer() {
-    return turn % 2 ? "O" : "X"; // if turn even return player 1, if turn off return player 2
+    return turn % 2 ? "X" : "O"; // if turn even return player 1, if turn off return player 2
   }
 
   $(".content-card").on("click", function() {
     // console.log("click works");
-    if ($(this).hasClass("X" || "O")) {
-      // a message to pick another square.  find something in bootstrap.
+    if ($(this).hasClass("X") || $(this).hasClass("O")) {
+      alert("No cheating.  Pick another square.") // look for something in bootstrap
     } else {
       $(this).addClass(currentPlayer());
-      $(this).text(currentPlayer());  // will change O to X will not change X to O.
+      $(this).text(currentPlayer());
+      $.each(winCombinations, threeInARow); // broken - supposed to check for winner
+      turn++;  // advance game
+       if (turn === 10) {  // should be handled with gameOver.
+         $(".status").text("Cat's game!")
+         $(".status").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+       } else {
+         $(".status").text("Player " + currentPlayer() + ". It's your turn.");
+       }
     }
-    turn++;  // advance game
-    gameOver();  // check to see if there's a winner
+
     return;
   })
 
-  function gameOver() {
-    if ($.each(threeInARow, function(sequence) {  // check each element (array of arrays)
-      if ($.each(sequence).hasClass(currentPlayer())) {  // this doesn't work!!  supposed to check each item within a single array to see any have a specific class.
-        winner = currentPlayer(); // if yes winner
-        console.log(currentPlayer());  // testing
-        return; // not sure if this required
+  function threeInARow(index, set){ // does not work - take in all win conditions
+    set.each(checkWinStatus);
+      if (winCounter === 3) {
+        $(".status").text(currentPlayer() + "has won the game!")
+        $(".status").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
       }
-    })) {
-    } else if (turn === 9) {
-      winner = "Not you";  // cat game at turn 9 if no one has won.
+  }
+
+  function checkWinStatus(current){ // does not work - look at one win condition class (set of 3 spaces)
+    winCounter = 0;  // reset winCounter each time i look at a new win condition class (set of 3 spaces)
+
+    if ($(current).hasClass(currentPlayer)){ // look at each space in that set of three, each space belonging to current player increases winCounter by 1
+      winCounter++;
     }
-    $(".status").text("The winner is: " + winner);
-    $(".status").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);  // half sec fade in and out
   }
 
   $(".btn").on("click", function () {
@@ -43,6 +52,35 @@ $(document).ready(function() {
   })
 
 });
+  /*
+  var winCombinations = [$('p'), $('div'), $('pre')]; // every way you can win
+
+  $.each(winCombinations, threeInARow);  // check each win combination and run threeInARow on it
+
+  function threeInARow(index, set){ //look at a smaller set of things, run a function on each one
+    set.each(checkWinStatus);
+  }
+
+  function checkWinStatus(current){
+    var winCounter = 0;
+
+    if ($(current).hasClass(currentPlayer)){
+  }
+  */
+
+  // function gameOver() {
+  //   $.each(winCombinations, threeInARow);
+  //
+  //   function threeInARow(index, currentPlayer()) {
+  //     if (threeInARow[index].hasClass(currentPlayer())) {
+  //      winCounter++;
+  //     }
+  //   }
+  //   $(".status").text("The winner is: " + currentPlayer());
+  //   $(".status").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);  // half sec fade in and out
+  // }
+
+
 
 
 // Users should be able to click on any empty box to make a move.
